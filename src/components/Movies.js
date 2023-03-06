@@ -6,7 +6,7 @@ import { Loader } from "./Loader";
 import { Error } from "./Error";
 
 const StyledForm = styled.form`
-margin: 20px 0px 0px 15px;`
+margin: 20px 0px 20px 15px;`
 
 const StyledInput = styled.input`
 width: 300px;
@@ -54,27 +54,28 @@ export const Movies = () => {
         const { value } = e.target;
         setQuery(value);
     };
+    useEffect(() => {
+        const handleMoviesRequest = async () => {
+            setIsLoading(true)
+            try {
+                const fetchedMovies = await fetchSearched(query);
+                setMovies(fetchedMovies);
+            } catch (error) {
+                setError(error.message)
+            } finally {
+                setIsLoading(false)
+            }
+        };
 
-    const handleMoviesRequest = async () => {
-        setIsLoading(true)
-        try {
-            const fetchedMovies = await fetchSearched(query);
-            setMovies(fetchedMovies);
-        } catch (error) {
-            setError(error.message)
-        } finally {
-            setIsLoading(false)
-        }
-    };
+        handleMoviesRequest();
+    }, [query])
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        handleMoviesRequest()
     }
 
-    useEffect(() => {
-        handleMoviesRequest()
-    }, [query])
+
 
     return (<>
         <StyledForm onSubmit={handleSubmit}>

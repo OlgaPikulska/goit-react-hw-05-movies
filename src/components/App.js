@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import { Header } from "./Header";
 import { Home } from "./Home";
 import { Movies } from "./Movies";
+import { NotFound } from "./NotFound";
 
 export const App = () => {
 
@@ -11,8 +12,7 @@ export const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/movies" element={<Movies />} />
-
-
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </>
   );
