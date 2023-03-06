@@ -2,6 +2,7 @@ import { NavLink } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { fetchTrending } from "services/api";
+import { Loader } from "./Loader";
 
 const StyledHeader = styled.h2`
 margin: 15px 0px 15px 10px;
@@ -53,6 +54,7 @@ export const Home = () => {
         <>
             <StyledHeader>Trending today</StyledHeader>
             <MoviesList movies={movies} />
+            {isLoading && <Loader />}
         </>
 
     )
