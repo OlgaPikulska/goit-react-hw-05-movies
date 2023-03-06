@@ -20,8 +20,8 @@ margin-right: 15px;
 export const Header = () => {
     return (
         <StyledNav>
-            <StyledLink>Home</StyledLink>
-            <StyledLink>Movies</StyledLink>
+            <StyledLink to="/" end>Home</StyledLink>
+            <StyledLink to="/movies">Movies</StyledLink>
         </StyledNav>
     )
 }

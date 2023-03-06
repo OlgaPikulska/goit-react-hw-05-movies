@@ -7,8 +7,6 @@ export const fetchTrending = async () => {
 
     const trendingMovies = response.data.results
 
-    //console.log(trendingMovies)
-    //console.log(typeof trendingMovies)
     return trendingMovies;
 }
 

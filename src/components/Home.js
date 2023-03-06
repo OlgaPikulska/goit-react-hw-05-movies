@@ -1,35 +1,13 @@
-import { NavLink } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { fetchTrending } from "services/api";
+import { fetchTrending } from "services/fetchTrending";
 import { Loader } from "./Loader";
 import { Error } from "./Error";
+import { MoviesList } from "./MoviesList";
 
 const StyledHeader = styled.h2`
 margin: 15px 0px 15px 10px;
 `
-const StyledLink = styled(NavLink)`
-  color: blue;
-
-  &.active {
-    color: orange;
-  }
-`;
-
-const StyledList = styled.ul`
-margin-left: 45px;
-line-height: 1.5;`
-
-
-const MoviesList = ({ movies }) => {
-    return (
-        <StyledList>
-            {movies.map(movie => (
-                <li key={movie.id}><StyledLink>{movie.title}</StyledLink></li>
-            ))}
-        </StyledList>
-    )
-}
 
 export const Home = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -50,7 +28,7 @@ export const Home = () => {
         }
         handleMoviesRequest()
     }, [])
-    console.log(movies)
+
     return (
         <>
             <StyledHeader>Trending today</StyledHeader>
