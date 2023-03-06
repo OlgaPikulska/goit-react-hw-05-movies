@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { fetchTrending } from "services/api";
 import { Loader } from "./Loader";
+import { Error } from "./Error";
 
 const StyledHeader = styled.h2`
 margin: 15px 0px 15px 10px;
@@ -55,7 +56,7 @@ export const Home = () => {
             <StyledHeader>Trending today</StyledHeader>
             <MoviesList movies={movies} />
             {isLoading && <Loader />}
+            {error && <Error text="An error occurred. Please try again" />}
         </>
-
     )
 }
