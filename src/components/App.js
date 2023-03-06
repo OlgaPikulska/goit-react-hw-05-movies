@@ -1,7 +1,9 @@
+import { Header } from "./Header";
+
 export const App = () => {
   return (
-    <div>
-      Hello
-    </div>
+    <>
+      <Header />
+    </>
   );
 };

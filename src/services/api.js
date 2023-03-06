@@ -1,0 +1,1 @@
+// klucz: 3021d0a00504ba1e19ba2da5e2aaac4b
