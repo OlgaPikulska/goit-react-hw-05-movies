@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { fetchTrending } from "services/fetchTrending";
-import { Loader } from "./Loader";
-import { Error } from "./Error";
+import { Loader } from "../components/Loader";
+import { Error } from "../components/Error";
 import { MoviesList } from "./MoviesList";
 
 const StyledHeading = styled.h2`

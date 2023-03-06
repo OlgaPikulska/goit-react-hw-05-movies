@@ -6,7 +6,7 @@ export const fetchDetails = async (movieId) => {
     const response = await axios.get(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${key}`);
 
     console.log(response)
-    const details = response.data.results
+    const details = response.data
 
     return details;
 }

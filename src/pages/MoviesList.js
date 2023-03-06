@@ -1,4 +1,5 @@
 import styled from "styled-components";
+
 import { NavLink } from "react-router-dom";
 
 
@@ -16,11 +17,11 @@ line-height: 1.5;`
 
 
 export const MoviesList = ({ movies }) => {
-    return (
-        <StyledList>
-            {movies.map(movie => (
-                <li key={movie.id}><StyledLink>{movie.title}</StyledLink></li>
-            ))}
-        </StyledList>
-    )
+  return (
+    <StyledList>
+      {movies.map(movie => (
+        <li key={movie.id}><StyledLink to={`/movies/${movie.id}`}>{movie.title}</StyledLink></li>
+      ))}
+    </StyledList>
+  )
 }
