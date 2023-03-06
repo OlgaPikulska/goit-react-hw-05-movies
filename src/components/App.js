@@ -1,12 +1,12 @@
 import { Header } from "./Header";
-import { fetchTrending } from "services/api";
+import { Home } from "./Home";
 
 export const App = () => {
 
-  fetchTrending();
   return (
     <>
       <Header />
+      <Home />
     </>
   );
 };
