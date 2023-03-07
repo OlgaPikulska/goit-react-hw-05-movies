@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Loader } from "../components/Loader";
 import { Error } from "../components/Error";
 import styled from "styled-components";
+import { BsArrowLeft } from "react-icons/bs";
 
 export const MovieDetails = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -29,7 +30,7 @@ export const MovieDetails = () => {
     const year = new Date(details.release_date).getFullYear();
     return (
         <>
-            <StyledButton type="button"><StyledLink>Go back</StyledLink></StyledButton>
+            <StyledButton type="button"><StyledLink to="/"><BsArrowLeft /> Go back</StyledLink></StyledButton>
             <StyledBox>
                 <img src={`//image.tmdb.org/t/p/w500/${details.poster_path}`} width="30%" height="30%" alt={`Poster of ${details.title}`} />
                 <StyledDiv>
@@ -73,7 +74,8 @@ flex-direction: row;
 gap: 5px;
 `
 const StyledLink = styled(NavLink)`
-  color: blue;
+  color: black;
+  text-decoration: none;
 
   &.active {
     color: orange;
@@ -88,4 +90,11 @@ margin-top: 20px;`
 
 const StyledButton = styled.button`
 background-color:white;
-padding: 10px 5px;`
+padding: 10px;
+outline:none;
+text-decoration: none;
+border: 1px solid rgb(184, 183, 183);
+border-radius: 5px;
+margin: 10px;
+display: flex;
+align-items: center;`
