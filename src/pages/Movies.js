@@ -1,15 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { MoviesList } from "./MoviesList";
 import { fetchSearched } from "services/fetchSearched";
 import { Loader } from "../components/Loader";
 import { Error } from "../components/Error";
+import { useNavigate } from "react-router-dom";
 
 const StyledForm = styled.form`
 margin: 20px 0px 20px 15px;`
 
 const StyledInput = styled.input`
-width: 300px;
+min-width: 200px;
+max-width: 300px;
   height: 30px;
   border: 1px solid rgb(184, 183, 183);
   outline: none;
@@ -48,31 +50,33 @@ export const Movies = () => {
     const [movies, setMovies] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
+    const navigate = useNavigate();
 
     console.log(movies);
     const handleChange = (e) => {
         const { value } = e.target;
         setQuery(value);
     };
-    useEffect(() => {
-        const handleMoviesRequest = async () => {
-            setIsLoading(true)
-            try {
-                const fetchedMovies = await fetchSearched(query);
-                setMovies(fetchedMovies);
-            } catch (error) {
-                setError(error.message)
-            } finally {
-                setIsLoading(false)
-            }
-        };
 
-        handleMoviesRequest();
-    }, [query])
+    const handleMoviesRequest = async () => {
+        setIsLoading(true)
+        try {
+            const fetchedMovies = await fetchSearched(query);
+            if (fetchedMovies) {
+                setMovies(fetchedMovies);
+                navigate(`?query=${query}`)
+            }
+        } catch (error) {
+            setError(error.message)
+        } finally {
+            setIsLoading(false)
+        }
+    };
 
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        handleMoviesRequest();
     }
 
 
@@ -93,7 +97,7 @@ export const Movies = () => {
         <MoviesList movies={movies} />
         {isLoading && <Loader />}
         {error && <Error text="An error occurred. Please try again" />}
-        {movies.length === 0 && query && !isLoading && <Error text="Nothing found! Try again" />}
+        {/* {movies.length === 0 && query && !isLoading && <Error text="Nothing found! Try again" />} */}
     </>
 
     )

@@ -1,4 +1,4 @@
-import { useParams, NavLink } from "react-router-dom"
+import { useParams, NavLink, Outlet } from "react-router-dom"
 import { fetchDetails } from "services/fetchDetails";
 import { useEffect, useState } from "react";
 import { Loader } from "../components/Loader";
@@ -47,10 +47,12 @@ export const MovieDetails = () => {
             <StyledBox style={{ flexDirection: "column" }}>
                 <StyledParagraph>Additional information</StyledParagraph>
                 <StyledList>
-                    <li><StyledLink>Cast</StyledLink></li>
-                    <li><StyledLink>Previews</StyledLink></li>
+                    <li><StyledLink to="cast">Cast</StyledLink></li>
+                    <li><StyledLink to="reviews">Reviews</StyledLink></li>
                 </StyledList>
             </StyledBox>
+            <Outlet />
+
         </>
     )
 }
