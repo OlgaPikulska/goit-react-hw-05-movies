@@ -9,7 +9,7 @@ const StyledHeading = styled.h2`
 margin: 15px 0px 15px 10px;
 `
 
-export const Home = () => {
+const Home = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
     const [movies, setMovies] = useState([])
@@ -38,3 +38,5 @@ export const Home = () => {
         </>
     )
 }
+
+export default Home;

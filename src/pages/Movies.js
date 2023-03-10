@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { MoviesList } from "./MoviesList";
 import { fetchSearched } from "services/fetchSearched";
 import { Loader } from "../components/Loader";
 import { Error } from "../components/Error";
-import { useNavigate } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 
 const StyledForm = styled.form`
 margin: 20px 0px 20px 15px;`
@@ -15,6 +15,7 @@ max-width: 300px;
   height: 30px;
   border: 1px solid rgb(184, 183, 183);
   outline: none;
+  padding-left: 8px;
 `
 
 const StyledButtonLabel = styled.span`
@@ -44,39 +45,36 @@ border: 1px solid rgb(155, 154, 154);
   }
 `
 
-
-export const Movies = () => {
-    const [query, setQuery] = useState("");
+const Movies = () => {
     const [movies, setMovies] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
-    const navigate = useNavigate();
 
-    console.log(movies);
-    const handleChange = (e) => {
-        const { value } = e.target;
-        setQuery(value);
-    };
+    const [searchParams, setSearchParams] = useSearchParams();
+    const query = searchParams.get("query");
 
-    const handleMoviesRequest = async () => {
-        setIsLoading(true)
-        try {
-            const fetchedMovies = await fetchSearched(query);
-            if (fetchedMovies) {
+    useEffect(() => {
+        if (query === null) return;
+
+        const handleMoviesRequest = async () => {
+            setIsLoading(true)
+            try {
+                const fetchedMovies = await fetchSearched(query);
                 setMovies(fetchedMovies);
-                navigate(`?query=${query}`)
+            } catch (error) {
+                setError(error.message)
+            } finally {
+                setIsLoading(false)
             }
-        } catch (error) {
-            setError(error.message)
-        } finally {
-            setIsLoading(false)
-        }
-    };
-
+        };
+        handleMoviesRequest();
+    }, [query])
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        handleMoviesRequest();
+        const form = e.currentTarget;
+        setSearchParams({ query: form.elements.query.value });
+        form.reset();
     }
 
 
@@ -88,7 +86,6 @@ export const Movies = () => {
                 autocomplete="off"
                 autoFocus
                 name="query"
-                onChange={handleChange}
             />
             <StyledFormButton type="submit">
                 <StyledButtonLabel>Search</StyledButtonLabel>Search
@@ -97,8 +94,9 @@ export const Movies = () => {
         <MoviesList movies={movies} />
         {isLoading && <Loader />}
         {error && <Error text="An error occurred. Please try again" />}
-        {/* {movies.length === 0 && query && !isLoading && <Error text="Nothing found! Try again" />} */}
+        {movies.length === 0 && query && !isLoading && <Error text="Nothing found! Try again" />}
     </>
-
     )
 }
+
+export default Movies;

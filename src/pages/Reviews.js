@@ -1,7 +1,21 @@
 import { useEffect, useState } from "react";
 import { fetchReviews } from "services/fetchReviews";
-import { useParams } from "react-router-dom"
+import { useParams } from "react-router-dom";
+import { Loader } from "../components/Loader";
+import { Error } from "../components/Error";
+import styled from "styled-components";
 
+const StyledList = styled.ul`
+list-style: none;
+margin-top: 15px;
+`
+
+const StyledParagraph = styled.p`
+margin-left: 15px;
+margin-top: 10px;`
+
+const StyledItem = styled.li`
+margin-bottom: 20px;`
 
 export const Reviews = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -25,18 +39,21 @@ export const Reviews = () => {
         handleMoviesRequest()
     }, [id])
 
-    return (
-        <ul>
+    return (<>
+        <StyledList>
             {reviews.length > 0
                 ?
                 reviews.map(review => (
-                    <li key={review.id}>
+                    <StyledItem key={review.id}>
                         <b>Author: {review.author}</b>
-                        <p>{review.content}</p>
-                    </li>
+                        <StyledParagraph>{review.content}</StyledParagraph>
+                    </StyledItem>
                 ))
                 :
                 "We don't have any reviews for this movie"}
-        </ul>
+        </StyledList>
+        {isLoading && <Loader />}
+        {error && <Error text="An error occurred. Please try again" />}
+    </>
     )
-}
+};
