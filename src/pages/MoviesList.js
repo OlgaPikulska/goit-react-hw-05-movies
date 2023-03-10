@@ -16,7 +16,6 @@ line-height: 1.5;`
 
 
 export const MoviesList = ({ movies }) => {
-  console.log(typeof movies)
   const location = useLocation();
   return (
     <StyledList>
@@ -34,5 +33,5 @@ export const MoviesList = ({ movies }) => {
 }
 
 MoviesList.propTypes = {
-  movies: PropTypes.array.isRequired,
+  movies: PropTypes.array,
 }

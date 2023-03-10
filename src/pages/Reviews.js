@@ -17,7 +17,7 @@ margin-top: 10px;`
 const StyledItem = styled.li`
 margin-bottom: 20px;`
 
-export const Reviews = () => {
+const Reviews = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
     const [reviews, setReviews] = useState([]);
@@ -57,3 +57,5 @@ export const Reviews = () => {
     </>
     )
 };
+
+export default Reviews;

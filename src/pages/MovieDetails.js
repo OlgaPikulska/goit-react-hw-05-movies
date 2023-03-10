@@ -57,7 +57,6 @@ const MovieDetails = () => {
     const location = useLocation();
     const backlinkHref = location.state?.from ?? "/"
 
-    console.log(details)
     useEffect(() => {
         const handleMoviesRequest = async () => {
             setIsLoading(true)
